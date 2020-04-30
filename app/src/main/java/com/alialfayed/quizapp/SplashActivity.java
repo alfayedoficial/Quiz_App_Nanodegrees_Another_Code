@@ -1,13 +1,10 @@
-package com.alialfayed.quizapp.splashActivity;
+package com.alialfayed.quizapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
-import com.alialfayed.quizapp.R;
-import com.alialfayed.quizapp.mainActivity.view.MainActivity;
 
 
 public class SplashActivity extends AppCompatActivity {

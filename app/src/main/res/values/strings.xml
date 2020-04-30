@@ -7,7 +7,7 @@
 	 <string name="msg_lose">Try Again</string>
 	 <string name="game_status_win">You Are Win.</string>
 	 <string name="game_status_lose">You Are Lose.</string>
-	 <string name="msg_answer_all">The third section must be answered.</string>
+	 <string name="msg_answer_all">All Questions must be answered.</string>
 
 
 	<!--	Q1 -->
@@ -48,28 +48,22 @@
 
 	 <!--	Q7 -->
 	 <string name="q7_title">What is the result of this calculation ?</string>
-	 <string name="q7_answer_1">0</string>
-	 <string name="q7_answer_2">0</string>
-	 <string name="q7_answer_3">0</string>
 
 	 <!--	Q8 -->
 	 <string name="q8_title">What is the result of this calculation ?</string>
-	 <string name="q8_answer_1">1</string>
-	 <string name="q8_answer_2">0</string>
-	 <string name="q8_answer_3">0</string>
 
 	 <!--	Q9 -->
 	 <string name="q9_title">What is the result of this calculation ?</string>
-	 <string name="q9_answer_1">2</string>
-	 <string name="q9_answer_2">0</string>
-	 <string name="q9_answer_3">0</string>
+
+
+
 	 <string name="title_question">Title Question</string>
 	 <string name="write_answer">Write Answer ....</string>
 	 <string name="enter">Enter</string>
 	 <string name="checkbox">CheckBox</string>
 	 <string name="welcome_to_quiz_app">welcome To Quiz App</string>
 	 <string name="write_your_name">Write Your Name</string>
-	 <string name="next">Next</string>
+	 <string name="start">Start</string>
 	 <string name="right_answers">Right Answers</string>
 	 <string name="wrong_answers">Wrong Answers</string>
 	 <string name="section_one">Section One</string>

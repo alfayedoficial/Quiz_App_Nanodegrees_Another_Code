@@ -13,8 +13,8 @@
 		  android:theme="@style/AppTheme"
 		  tools:ignore="AllowBackup">
 
-		  <activity android:name=".mainActivity.view.MainActivity" />
-		  <activity android:name=".splashActivity.SplashActivity">
+		  <activity android:name=".MainActivity" />
+		  <activity android:name=".SplashActivity">
 			   <intent-filter>
 					<action android:name="android.intent.action.MAIN" />
 
