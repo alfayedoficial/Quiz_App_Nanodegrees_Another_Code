@@ -50,12 +50,5 @@ public class SaveSharedPreferences {
         return preferences(context).getString(NAME_USER, SH_QUIZ);
     }
 
-    public static void saveFirstOnce(Boolean firstOne, Context context) {
-        preferences(context).edit()
-                .putBoolean(FIRST_ONE, firstOne).apply();
-    }
 
-    public static boolean getFirstOnce(Context context) {
-        return preferences(context).getBoolean(FIRST_ONE, false);
-    }
 }

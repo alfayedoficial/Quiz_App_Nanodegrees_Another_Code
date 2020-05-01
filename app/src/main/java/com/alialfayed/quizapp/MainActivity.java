@@ -3,6 +3,7 @@ package com.alialfayed.quizapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -108,19 +109,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //initialize Variables
         controlButton();
-
-        if (SaveSharedPreferences.getFirstOnce(this)) {
-            rtlFirstScreen.setVisibility(View.GONE);
-            rtlSecondScreen.setVisibility(View.VISIBLE);
-        } else {
-            rtlFirstScreen.setVisibility(View.VISIBLE);
-            rtlSecondScreen.setVisibility(View.GONE);
-            rtlThirdScreen.setVisibility(View.GONE);
-        }
-
-        SaveSharedPreferences.saveFirstOnce(false, this);
-        saveCounterCorrect(0, this);
-        saveCounterWrong(0, this);
     }
 
     private void controlButton() {
@@ -297,7 +285,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     saveNameUser(nameUser, this);
                     saveCounterCorrect(0, this);
                     saveCounterWrong(0, this);
-                    SaveSharedPreferences.saveFirstOnce(true, this);
                 } else {
                     textInputLayout_NameUser.setErrorEnabled(false);
                     textInputLayout_NameUser.setError(getText(R.string.msg_answer_required));
@@ -361,9 +348,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 saveCounterCorrect(0, this);
                 saveCounterWrong(0, this);
+                counterWrong = 0;
+                counterCorrect = 0;
 
-                Intent restartIntent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(restartIntent);
+                resetQuiz();
+
+                rtlThirdScreen.setVisibility(View.GONE);
+                rtlSecondScreen.setVisibility(View.VISIBLE);
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + view.getId());
@@ -425,27 +416,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             counterWrong++;
             SaveSharedPreferences.saveCounterWrong(counterWrong, this);
 
-        } else if (cBox_1_ItemQuestionCheck3.isChecked()) {
+        } else if (cBox_1_ItemQuestionCheck3.isChecked() && (!cBox_2_ItemQuestionCheck3.isChecked()||!cBox_3_ItemQuestionCheck3.isChecked())) {
             counterWrong++;
             SaveSharedPreferences.saveCounterWrong(counterWrong, this);
 
-        } else if (cBox_2_ItemQuestionCheck3.isChecked()) {
+        } else if (cBox_2_ItemQuestionCheck3.isChecked() && !cBox_1_ItemQuestionCheck3.isChecked() && !cBox_3_ItemQuestionCheck3.isChecked()) {
             counterWrong++;
             SaveSharedPreferences.saveCounterWrong(counterWrong, this);
 
-        } else if (cBox_3_ItemQuestionCheck3.isChecked()) {
+        } else if (cBox_3_ItemQuestionCheck3.isChecked() && !cBox_1_ItemQuestionCheck3.isChecked() && !cBox_2_ItemQuestionCheck3.isChecked()) {
             counterWrong++;
             SaveSharedPreferences.saveCounterWrong(counterWrong, this);
 
-        } else if (cBox_2_ItemQuestionCheck2.isChecked() && cBox_1_ItemQuestionCheck2.isChecked() && cBox_3_ItemQuestionCheck2.isChecked()) {
+        } else if (cBox_2_ItemQuestionCheck3.isChecked() && cBox_1_ItemQuestionCheck3.isChecked() && cBox_3_ItemQuestionCheck3.isChecked()) {
             counterWrong++;
             SaveSharedPreferences.saveCounterWrong(counterWrong, this);
 
-        } else if (!cBox_1_ItemQuestionCheck3.isChecked() && cBox_2_ItemQuestionCheck2.isChecked() && cBox_3_ItemQuestionCheck2.isChecked()) {
+        } else if (!cBox_1_ItemQuestionCheck3.isChecked() && cBox_2_ItemQuestionCheck3.isChecked() && cBox_3_ItemQuestionCheck3.isChecked()) {
             if ((cBox_2_ItemQuestionCheck3.getText().toString().equals(ANSWER_Q_3) ||
                     cBox_2_ItemQuestionCheck3.getText().toString().equals(ANSWER_Q_3_1)) &&
                     (cBox_3_ItemQuestionCheck3.getText().toString().equals(ANSWER_Q_3) ||
-                            cBox_2_ItemQuestionCheck3.getText().toString().equals(ANSWER_Q_3_1))) {
+                            cBox_3_ItemQuestionCheck3.getText().toString().equals(ANSWER_Q_3_1))) {
                 counterCorrect++;
                 saveCounterCorrect(counterCorrect, this);
             }
@@ -525,5 +516,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void setResult(String massage, String nameUSer, String statusGame) {
         Toast.makeText(this, massage + " " + nameUSer + "\n" + statusGame, Toast.LENGTH_LONG).show();
+    }
+
+    private void resetQuiz(){
+        cBox_1_ItemQuestionCheck1.setChecked(false);
+        cBox_2_ItemQuestionCheck1.setChecked(false);
+        cBox_3_ItemQuestionCheck1.setChecked(false);
+
+        cBox_1_ItemQuestionCheck2.setChecked(false);
+        cBox_2_ItemQuestionCheck2.setChecked(false);
+        cBox_3_ItemQuestionCheck2.setChecked(false);
+
+        cBox_1_ItemQuestionCheck3.setChecked(false);
+        cBox_2_ItemQuestionCheck3.setChecked(false);
+        cBox_3_ItemQuestionCheck3.setChecked(false);
+
+        rBtn_1_ItemQuestionRadio1.setChecked(false);
+        rBtn_2_ItemQuestionRadio1.setChecked(false);
+        rBtn_3_ItemQuestionRadio1.setChecked(false);
+
+        rBtn_1_ItemQuestionRadio2.setChecked(false);
+        rBtn_2_ItemQuestionRadio2.setChecked(false);
+        rBtn_3_ItemQuestionRadio2.setChecked(false);
+
+        rBtn_1_ItemQuestionRadio3.setChecked(false);
+        rBtn_2_ItemQuestionRadio3.setChecked(false);
+        rBtn_3_ItemQuestionRadio3.setChecked(false);
+
+        eTxt_ItemQuestionEdit1.setText("");
+        eTxt_ItemQuestionEdit2.setText("");
+        eTxt_ItemQuestionEdit3.setText("");
     }
 }
