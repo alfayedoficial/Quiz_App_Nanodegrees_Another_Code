@@ -11,7 +11,7 @@ import static com.alialfayed.quizapp.util.Constants.SH_QUIZ;
 
 /**
  * Created by ( Eng Ali Al Fayed)
- * Class do :
+ * Class do : Save Value in SharedPreferences
  * Date 4/29/2020 - 4:28 AM
  */
 public class SaveSharedPreferences {

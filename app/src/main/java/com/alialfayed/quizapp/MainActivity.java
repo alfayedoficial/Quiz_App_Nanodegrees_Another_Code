@@ -3,8 +3,6 @@ package com.alialfayed.quizapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,6 +15,8 @@ import android.widget.Toast;
 
 import com.alialfayed.quizapp.util.SaveSharedPreferences;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Objects;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextInputLayout textInputLayout_NameUser;
 
-
     private TextView txtCorrectAnswer;
     private TextView txtWongAnswer;
     private TextView txtStatusGame;
@@ -62,57 +61,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     //////////////////// First Section
     // q1CheckBox
-
     private CheckBox cBox_1_ItemQuestionCheck1;
     private CheckBox cBox_2_ItemQuestionCheck1;
     private CheckBox cBox_3_ItemQuestionCheck1;
 
     // q2CheckBox
-
     private CheckBox cBox_1_ItemQuestionCheck2;
     private CheckBox cBox_2_ItemQuestionCheck2;
     private CheckBox cBox_3_ItemQuestionCheck2;
 
     // q3CheckBox
-
     private CheckBox cBox_1_ItemQuestionCheck3;
     private CheckBox cBox_2_ItemQuestionCheck3;
     private CheckBox cBox_3_ItemQuestionCheck3;
 
     //////////////////// Second Section
     // q1RadioButton
-
     private RadioButton rBtn_1_ItemQuestionRadio1;
     private RadioButton rBtn_2_ItemQuestionRadio1;
     private RadioButton rBtn_3_ItemQuestionRadio1;
 
     // q2RadioButton
-
     private RadioButton rBtn_1_ItemQuestionRadio2;
     private RadioButton rBtn_2_ItemQuestionRadio2;
     private RadioButton rBtn_3_ItemQuestionRadio2;
 
     // q3RadioButton
-
     private RadioButton rBtn_1_ItemQuestionRadio3;
     private RadioButton rBtn_2_ItemQuestionRadio3;
     private RadioButton rBtn_3_ItemQuestionRadio3;
 
     //////////////////// Third Section
     // q1EditText
-
     private EditText eTxt_ItemQuestionEdit1;
 
     // q2EditText
-
     private EditText eTxt_ItemQuestionEdit2;
 
     // q3EditText
-
     private EditText eTxt_ItemQuestionEdit3;
-
-    private Boolean close = false;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //initialize Variables
         controlButton();
-
 
         if (SaveSharedPreferences.getFirstOnce(this)) {
             rtlFirstScreen.setVisibility(View.GONE);
@@ -135,8 +121,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SaveSharedPreferences.saveFirstOnce(false, this);
         saveCounterCorrect(0, this);
         saveCounterWrong(0, this);
-
-
     }
 
     private void controlButton() {
@@ -152,7 +136,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button btn_Next = findViewById(R.id.btn_Start);
         Button btn_Score = findViewById(R.id.btn_Score);
         Button btn_TryAgain = findViewById(R.id.btn_TryAgain);
-
 
         //initialize  RelativeLayout
         rtlFirstScreen = findViewById(R.id.rtlFirstScreen);
@@ -173,14 +156,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_Next.setOnClickListener(this);
         btn_Score.setOnClickListener(this);
         btn_TryAgain.setOnClickListener(this);
-
-
-
-
     }
 
     private void inflateEdit() {
-
         // Q1
         TextView txtTitle_ItemQuestionEdit1 = findViewById(R.id.txtTitle_ItemQuestionEdit1);
         ImageView img_ItemQuestionEdit1 = findViewById(R.id.img_ItemQuestionEdit1);
@@ -208,12 +186,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Q3
         txtTitle_ItemQuestionEdit3.setText(getString(R.string.q9_title));
         img_ItemQuestionEdit3.setImageResource(R.drawable.ic_question_3);
-
-
     }
 
     private void inflateRadio() {
-
         //Q1
         TextView txtTitle_ItemQuestionRadio1 = findViewById(R.id.txtTitle_ItemQuestionRadio1);
         ImageView img_ItemQuestionRadio1 = findViewById(R.id.img_ItemQuestionRadio1);
@@ -256,12 +231,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rBtn_1_ItemQuestionRadio3.setText(getString(R.string.q6_answer_1));
         rBtn_2_ItemQuestionRadio3.setText(getString(R.string.q6_answer_2));
         rBtn_3_ItemQuestionRadio3.setText(getString(R.string.q6_answer_3));
-
-
     }
 
     private void inflateCheck() {
-
         // Q1
         TextView txtTitle_ItemQuestionCheck1 = findViewById(R.id.txtTitle_ItemQuestionCheck1);
         ImageView img_ItemQuestionCheck1 = findViewById(R.id.img_ItemQuestionCheck1);
@@ -304,8 +276,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cBox_1_ItemQuestionCheck3.setText(getString(R.string.q3_answer_1));
         cBox_2_ItemQuestionCheck3.setText(getString(R.string.q3_answer_2));
         cBox_3_ItemQuestionCheck3.setText(getString(R.string.q3_answer_3));
-
-
     }
 
     // inflate Toolbar
@@ -319,7 +289,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()) {
             case R.id.btn_Start:
 
-                nameUser = textInputLayout_NameUser.getEditText().getText().toString();
+                nameUser = Objects.requireNonNull(textInputLayout_NameUser.getEditText()).getText().toString();
                 if (!nameUser.isEmpty()) {
                     rtlFirstScreen.setVisibility(View.GONE);
                     rtlSecondScreen.setVisibility(View.VISIBLE);
@@ -332,12 +302,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     textInputLayout_NameUser.setErrorEnabled(false);
                     textInputLayout_NameUser.setError(getText(R.string.msg_answer_required));
                 }
-
                 break;
-
             case R.id.btn_Score:
 
-                // Strings
+                // Get text from EditText and convert them to strings
                 answerQ1 = eTxt_ItemQuestionEdit1.getText().toString();
                 answerQ2 = eTxt_ItemQuestionEdit2.getText().toString();
                 answerQ3 = eTxt_ItemQuestionEdit3.getText().toString();
@@ -351,17 +319,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else if (answerQ3.isEmpty()) {
                     eTxt_ItemQuestionEdit3.setError(getString(R.string.msg_answer_required));
                     eTxt_ItemQuestionEdit3.requestFocus();
-                }else if (!cBox_1_ItemQuestionCheck1.isChecked() && !cBox_2_ItemQuestionCheck1.isChecked() && !cBox_3_ItemQuestionCheck1.isChecked()) {
+                } else if (!cBox_1_ItemQuestionCheck1.isChecked() && !cBox_2_ItemQuestionCheck1.isChecked() && !cBox_3_ItemQuestionCheck1.isChecked()) {
                     setError();
-                }else if (!cBox_1_ItemQuestionCheck2.isChecked() && !cBox_2_ItemQuestionCheck2.isChecked() && !cBox_3_ItemQuestionCheck2.isChecked()) {
+                } else if (!cBox_1_ItemQuestionCheck2.isChecked() && !cBox_2_ItemQuestionCheck2.isChecked() && !cBox_3_ItemQuestionCheck2.isChecked()) {
                     setError();
-                }else if (!cBox_1_ItemQuestionCheck3.isChecked() && !cBox_2_ItemQuestionCheck3.isChecked() && !cBox_3_ItemQuestionCheck3.isChecked()) {
+                } else if (!cBox_1_ItemQuestionCheck3.isChecked() && !cBox_2_ItemQuestionCheck3.isChecked() && !cBox_3_ItemQuestionCheck3.isChecked()) {
                     setError();
-                }else if (!rBtn_1_ItemQuestionRadio1.isChecked() && !rBtn_2_ItemQuestionRadio1.isChecked() && !rBtn_3_ItemQuestionRadio1.isChecked()) {
+                } else if (!rBtn_1_ItemQuestionRadio1.isChecked() && !rBtn_2_ItemQuestionRadio1.isChecked() && !rBtn_3_ItemQuestionRadio1.isChecked()) {
                     setError();
-                }else if (!rBtn_1_ItemQuestionRadio2.isChecked() && !rBtn_2_ItemQuestionRadio2.isChecked() && !rBtn_3_ItemQuestionRadio2.isChecked()) {
+                } else if (!rBtn_1_ItemQuestionRadio2.isChecked() && !rBtn_2_ItemQuestionRadio2.isChecked() && !rBtn_3_ItemQuestionRadio2.isChecked()) {
                     setError();
-                }else if (!rBtn_1_ItemQuestionRadio3.isChecked() && !rBtn_2_ItemQuestionRadio3.isChecked() && !rBtn_3_ItemQuestionRadio3.isChecked()) {
+                } else if (!rBtn_1_ItemQuestionRadio3.isChecked() && !rBtn_2_ItemQuestionRadio3.isChecked() && !rBtn_3_ItemQuestionRadio3.isChecked()) {
                     setError();
                 } else {
                     checkAnswers();
@@ -387,9 +355,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     rtlSecondScreen.setVisibility(View.GONE);
                     rtlThirdScreen.setVisibility(View.VISIBLE);
-
                 }
-
                 break;
             case R.id.btn_TryAgain:
 
@@ -398,21 +364,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 Intent restartIntent = new Intent(MainActivity.this, MainActivity.class);
                 startActivity(restartIntent);
-
                 break;
-
             default:
                 throw new IllegalStateException("Unexpected value: " + view.getId());
         }
 
     }
 
-    private void setResult(String massage, String nameUSer, String statusGame) {
-        Toast.makeText(this, massage + " " + nameUSer + "\n" + statusGame, Toast.LENGTH_LONG).show();
-    }
-
     private void checkAnswers() {
-
         // q1CheckBox
         if (cBox_2_ItemQuestionCheck1.isChecked() || cBox_3_ItemQuestionCheck1.isChecked()) {
             counterWrong++;
@@ -490,10 +449,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 counterCorrect++;
                 saveCounterCorrect(counterCorrect, this);
             }
-
         }
-
-
     }
 
     private void radioAnswers() {
@@ -535,7 +491,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void editAnswers() {
-
         // q1EditText
         if (answerQ1.equals(ANSWER_Q_7)) {
             counterCorrect++;
@@ -562,10 +517,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             counterWrong++;
             SaveSharedPreferences.saveCounterWrong(counterWrong, this);
         }
-
     }
 
-    private void setError(){
-        Toast.makeText(this,getText(R.string.msg_answer_all),Toast.LENGTH_SHORT).show();
+    private void setError() {
+        Toast.makeText(this, getText(R.string.msg_answer_all), Toast.LENGTH_SHORT).show();
+    }
+
+    private void setResult(String massage, String nameUSer, String statusGame) {
+        Toast.makeText(this, massage + " " + nameUSer + "\n" + statusGame, Toast.LENGTH_LONG).show();
     }
 }

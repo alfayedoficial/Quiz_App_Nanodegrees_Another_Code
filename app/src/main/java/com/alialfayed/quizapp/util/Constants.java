@@ -2,7 +2,7 @@ package com.alialfayed.quizapp.util;
 
 /**
  * Created by ( Eng Ali Al Fayed)
- * Class do :
+ * Class do : Constants of values
  * Date 4/30/2020 - 2:09 PM
  */
 public class Constants {
